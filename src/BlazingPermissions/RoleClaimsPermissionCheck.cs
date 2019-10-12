@@ -7,9 +7,9 @@ using CSharpFunctionalExtensions;
 
 namespace BlazingPermissions
 {
-    public class ClaimsPermissionCheck : ICheckPermissions
+    public class RoleClaimsPermissionCheck : ICheckPermissions
     {
-        public ClaimsPermissionCheck(ClaimsPrincipal user, IEnumerable<string> viewRoles, IEnumerable<string> writeRoles)
+        public RoleClaimsPermissionCheck(ClaimsPrincipal user, IEnumerable<string> viewRoles, IEnumerable<string> writeRoles)
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             ViewRoles = viewRoles ?? throw new ArgumentNullException(nameof(viewRoles));
@@ -36,15 +36,9 @@ namespace BlazingPermissions
             return false;
         }
 
-        public bool CanView()
-        {
-            return CheckForRoles(ViewRoles);
-        }
+        public bool CanView() => CheckForRoles(ViewRoles);
 
-        public bool CanWrite()
-        {
-            return CheckForRoles(WriteRoles);
-        }
+        public bool CanWrite() => CheckForRoles(WriteRoles);
 
         public bool HasPermission(string id)
         {
